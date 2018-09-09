@@ -23,29 +23,29 @@ Things you may want to cover:
 
 * ...
 
-## userテーブル
+## usersテーブル
 
 |Column|Type|Options|
 |------|----|-------|
-|id|integer|null: false, unique: true|
 |name|text|null: false, unique: true|
 |email|text|null: false, unique: true|
 
 ### Association
-- has_many :groups, through: :members
-- has_many :members
+- has_many :groups, through: :users-groups
+- has_many :users-groups
+- has_many :messages
 
-## groupテーブル
+## groupsテーブル
 
 |Column|Type|Options|
 |------|----|-------|
-|id|integer|null: false, unique: true|
 |name|text|null: false|
 
 ### Association
-- has_many :users, through: :members
-- has_many :members
-- accepts_nested_attributes_for :members
+- has_many :users, through: :users-groups
+- has_many :users-groups
+- accepts_nested_attributes_for :users-groups
+- has_many :messages
 
 ## messagesテーブル
 
@@ -60,11 +60,10 @@ Things you may want to cover:
 - belongs_to :group
 - belongs_to :user
 
-## membersテーブル
+## users-groupsテーブル
 
 |Column|Type|Options|
 |------|----|-------|
-|id|integer|null: false, foreign_key: true|
 |user_id|integer|null: false, foreign_key: true|
 |group_id|integer|null: false, foreign_key: true|
 
